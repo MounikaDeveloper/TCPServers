@@ -2,8 +2,10 @@
 import socket
 import threading
 
-HOST = '127.0.0.1'
-PORT = 1234 # You can use any port between 0 to 65535
+#HOST = '127.0.0.1'
+#PORT = 1234 # You can use any port between 0 to 65535
+PORT=int(os.environ(['PORT']))
+HOST='0.0.0.0'
 LISTENER_LIMIT = 5
 active_clients = [] # List of all currently connected users
 
@@ -11,8 +13,8 @@ active_clients = [] # List of all currently connected users
 def listen_for_messages(client, username):
 
     while 1:
-
-        message = client.recv(4521).decode('utf-8')
+        print(f'CONNECTED -> {conn}')
+        message = client.recv(80).decode('utf-8')
         if message != '':
             
             final_msg = username + '~' + message
