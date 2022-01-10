@@ -6,7 +6,18 @@ import os
 #PORT = 1234 # You can use any port between 0 to 65535
 PORT=5050
 #HOST=socket.gethostname()
-HOST=socket.gethostbyname(socket.gethostname())
+#HOST=socket.gethostbyname(socket.gethostname())
+def extract_ip():
+    st=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+    try:
+        st.connect(('10.255.255.255',1))
+        ip=st.getsockname()[0]
+    except Exception:
+        ip='127.0.0.1'
+    finally:
+        st.close()
+    return ip
+HOST=extract_ip()
 LISTENER_LIMIT = 5
 active_clients = [] # List of all currently connected users
 
